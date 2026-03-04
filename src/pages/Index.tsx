@@ -220,7 +220,7 @@ export default function Index() {
               }}
             >
               <span className="mr-2">🌙</span>
-              Лунтичь!
+              Лунтить!
               <span className="ml-2">✨</span>
             </button>
 
