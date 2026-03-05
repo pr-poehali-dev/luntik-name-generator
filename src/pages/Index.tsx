@@ -197,7 +197,7 @@ export default function Index() {
             className="text-xl md:text-2xl font-semibold mb-8"
             style={{ color: "#5b4891" }}
           >
-            и его замечательные друзья 🌿
+            Узнай, кто ты из Лунтика и прочитай про персонажа 🌿
           </p>
 
           {/* Кнопка Лунтичь */}
