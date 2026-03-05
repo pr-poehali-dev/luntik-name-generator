@@ -112,6 +112,7 @@ export default function Index() {
   const [randomName, setRandomName] = useState<string | null>(null);
   const [isAnimating, setIsAnimating] = useState(false);
   const [selectedChar, setSelectedChar] = useState<(typeof CHARACTERS)[0] | null>(null);
+  const [randomChar, setRandomChar] = useState<(typeof CHARACTERS)[0] | null>(null);
   const [visibleCards, setVisibleCards] = useState<boolean[]>(
     new Array(CHARACTERS.length).fill(false)
   );
@@ -133,8 +134,9 @@ export default function Index() {
     setIsAnimating(true);
     setRandomName(null);
     setTimeout(() => {
-      const name = RANDOM_NAMES[Math.floor(Math.random() * RANDOM_NAMES.length)];
-      setRandomName(name);
+      const char = CHARACTERS[Math.floor(Math.random() * CHARACTERS.length)];
+      setRandomName(char.name);
+      setRandomChar(char);
       setIsAnimating(false);
     }, 400);
   };
@@ -260,6 +262,13 @@ export default function Index() {
                 >
                   {randomName}! 🎉
                 </p>
+                <button
+                  onClick={() => randomChar && setSelectedChar(randomChar)}
+                  className="mt-1 text-sm font-semibold underline underline-offset-2 transition-opacity hover:opacity-70"
+                  style={{ color: "#7c3aed" }}
+                >
+                  Найти персонажа
+                </button>
               </div>
             )}
           </div>
