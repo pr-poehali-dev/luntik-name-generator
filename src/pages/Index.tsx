@@ -137,6 +137,28 @@ export default function Index() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [selectedChar, setSelectedChar] = useState<(typeof CHARACTERS)[0] | null>(null);
   const [randomChar, setRandomChar] = useState<(typeof CHARACTERS)[0] | null>(null);
+
+  const playPop = () => {
+    const AudioCtx = window.AudioContext || (window as { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+    if (!AudioCtx) return;
+    const ctx = new AudioCtx();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(880, ctx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(440, ctx.currentTime + 0.1);
+    gain.gain.setValueAtTime(0.3, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.15);
+  };
+
+  const openCard = (char: (typeof CHARACTERS)[0]) => {
+    playPop();
+    setSelectedChar(char);
+  };
   const [visibleCards, setVisibleCards] = useState<boolean[]>(
     new Array(CHARACTERS.length).fill(false)
   );
@@ -287,7 +309,7 @@ export default function Index() {
                   {randomName}! 🎉
                 </p>
                 <button
-                  onClick={() => randomChar && setSelectedChar(randomChar)}
+                  onClick={() => randomChar && openCard(randomChar)}
                   className="mt-1 text-sm font-semibold underline underline-offset-2 transition-opacity hover:opacity-70"
                   style={{ color: "#7c3aed" }}
                 >
@@ -318,7 +340,7 @@ export default function Index() {
           {CHARACTERS.map((char, i) => (
             <div
               key={char.name}
-              onClick={() => setSelectedChar(char)}
+              onClick={() => openCard(char)}
               className="cursor-pointer transition-all duration-300 hover:scale-105 hover:-translate-y-1"
               style={{
                 opacity: visibleCards[i] ? 1 : 0,
