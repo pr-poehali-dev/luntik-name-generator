@@ -428,12 +428,7 @@ export default function Index() {
           ))}
         </div>
 
-        {/* Footer */}
-        <div className="text-center mt-16 pb-6">
-          <p className="text-base font-semibold" style={{ color: "#7c3aed" }}>
-            🌙 Лунтик и его друзья — Мир добра и приключений ✨
-          </p>
-        </div>
+        <div className="pb-6" />
       </div>
 
       {/* Модальное окно персонажа */}
